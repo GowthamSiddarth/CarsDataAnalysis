@@ -11,6 +11,11 @@ public class SortedCars {
     }
 
     public boolean addCar(Car car) {
+        updateAverageHorsePower(car.getHorsePower());
         return cars.add(car);
+    }
+
+    private void updateAverageHorsePower(double newCarHorsePower) {
+        averageHorsePower = (averageHorsePower * cars.size() + newCarHorsePower) / (cars.size() + 1);
     }
 }
