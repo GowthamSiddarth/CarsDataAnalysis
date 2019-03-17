@@ -13,6 +13,7 @@ public class ArgumentsParser {
     private File file;
     private int numOfCars;
     private String origin;
+    private boolean headerPresent;
 
     private List<Option> getOptionsList() {
         List<Option> options = new LinkedList<>();
@@ -26,9 +27,13 @@ public class ArgumentsParser {
         Option originOption = new Option("o", "origin", true, "Origin of cars");
         originOption.setRequired(true);
 
+        Option headerOption = new Option("nh", "no-header", false, "Flag for header in dataset");
+        headerOption.setRequired(false);
+
         options.add(filePathOption);
         options.add(numOfCarsOption);
         options.add(originOption);
+        options.add(headerOption);
 
         return options;
     }
@@ -46,6 +51,7 @@ public class ArgumentsParser {
             CommandLineParser parser = new DefaultParser();
             commandLine = parser.parse(options, args);
 
+            headerPresent = !commandLine.hasOption("no-header");
             origin = commandLine.getOptionValue("o");
 
             numOfCars = Integer.parseInt(commandLine.getOptionValue("n"));
@@ -77,5 +83,9 @@ public class ArgumentsParser {
 
     public String getOrigin() {
         return origin;
+    }
+
+    public boolean isHeaderPresent() {
+        return headerPresent;
     }
 }

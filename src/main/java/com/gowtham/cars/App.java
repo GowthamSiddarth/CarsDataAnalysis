@@ -18,8 +18,9 @@ public class App {
             File dataset = argumentsParser.getFile();
             String origin = argumentsParser.getOrigin();
             int numOfCars = argumentsParser.getNumOfCars();
+            boolean header = argumentsParser.isHeaderPresent();
 
-            ProcessData processData = new ProcessData(dataset, true);
+            ProcessData processData = new ProcessData(dataset, header);
             HashMap<String, SortedCars> sortedCarsByOrigin = processData.getSortedCarsByOrigin();
 
             SortedCars sortedCarsInOrigin = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
