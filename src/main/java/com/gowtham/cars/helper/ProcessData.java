@@ -1,6 +1,7 @@
 package com.gowtham.cars.helper;
 
 
+import com.gowtham.cars.models.Car;
 import com.gowtham.cars.models.SortedCars;
 
 import java.io.*;
@@ -16,25 +17,41 @@ public class ProcessData {
     }
 
     public HashMap<String, SortedCars> getSortedCarsByOrigin() {
-        BufferedReader bufferedReader;
+        BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(dataset));
             if (header) {
                 bufferedReader.readLine();
             }
 
-            String line = null;
-            HashMap<String, SortedCars> sortedCarsByOrigin = new HashMap<String, SortedCars>();
+            String line;
+            HashMap<String, SortedCars> sortedCarsByOrigin = new HashMap<>();
+            RecordParser recordParser = new RecordParser();
             do {
                 line = bufferedReader.readLine();
+                recordParser.parseRecord(line);
+
+                String carName = recordParser.getCarName();
+                double horsePower = recordParser.getHorsePower();
+                String origin = recordParser.getOrigin();
+
+                Car car = new Car(carName, horsePower, origin);
+                SortedCars sortedCars = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
+                sortedCars.addCar(car);
+                sortedCarsByOrigin.put(origin, sortedCars);
             } while (null != line);
 
-            bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return sortedCarsByOrigin;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
+
         return null;
     }
 }
