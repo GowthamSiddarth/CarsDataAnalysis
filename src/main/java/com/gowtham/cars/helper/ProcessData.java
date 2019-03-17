@@ -27,7 +27,6 @@ public class ProcessData {
             HashMap<String, SortedCars> sortedCarsByOrigin = new HashMap<>();
             RecordParser recordParser = new RecordParser();
 
-            int index = 0;
             String line;
             while (null != (line = bufferedReader.readLine())) {
                 recordParser.parseRecord(line);
@@ -36,12 +35,10 @@ public class ProcessData {
                 double horsePower = recordParser.getHorsePower();
                 String origin = recordParser.getOrigin();
 
-                Car car = new Car(index,carName, horsePower, origin);
+                Car car = new Car(carName, horsePower, origin);
                 SortedCars sortedCars = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
                 if (sortedCars.addCar(car))
                     sortedCarsByOrigin.put(origin, sortedCars);
-
-                index++;
             }
 
             return sortedCarsByOrigin;
@@ -65,9 +62,10 @@ public class ProcessData {
         int count = 0;
         while (count < numOfCars && sortedCarsItr.hasNext()) {
             Car car = sortedCarsItr.next();
-            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) filteredCars.add(car);
-            else break;
-            count++;
+            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) {
+                filteredCars.add(car);
+                count++;
+            }
         }
 
         return filteredCars;
