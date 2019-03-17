@@ -8,8 +8,8 @@ public class RecordParser {
     public void parseRecord(String record) {
         String attributes[] = record.split(",");
         carName = attributes[0];
-        horsePower = Double.parseDouble(attributes[1]);
-        origin = attributes[2];
+        origin = attributes[1];
+        horsePower = Double.parseDouble(attributes[2]);
     }
 
     public String getCarName() {
