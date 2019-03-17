@@ -69,7 +69,7 @@ public class ArgumentsParser {
         }
     }
 
-    public File getFilePath() {
+    public File getFile() {
         return file;
     }
 
