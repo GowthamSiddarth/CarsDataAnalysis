@@ -9,4 +9,8 @@ public class SortedCars {
     public SortedCars() {
         averageHorsePower = 0.0;
     }
+
+    public boolean addCar(Car car) {
+        return cars.add(car);
+    }
 }
