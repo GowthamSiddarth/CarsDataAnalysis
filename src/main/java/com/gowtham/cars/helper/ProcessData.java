@@ -65,9 +65,8 @@ public class ProcessData {
         int count = 0;
         while (count < numOfCars && sortedCarsItr.hasNext()) {
             Car car = sortedCarsItr.next();
-            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) {
-                filteredCars.add(car);
-            }
+            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) filteredCars.add(car);
+            else break;
             count++;
         }
 
