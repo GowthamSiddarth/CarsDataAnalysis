@@ -23,7 +23,7 @@ public class App {
             ProcessData processData = new ProcessData(dataset, true);
             HashMap<String, SortedCars> sortedCarsByOrigin = processData.getSortedCarsByOrigin();
 
-            SortedCars sortedCarsInOrigin = sortedCarsByOrigin.get(origin);
+            SortedCars sortedCarsInOrigin = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
             Iterator<Car> sortedCarsItr = sortedCarsInOrigin.getCars().iterator();
 
             int count = 0;
