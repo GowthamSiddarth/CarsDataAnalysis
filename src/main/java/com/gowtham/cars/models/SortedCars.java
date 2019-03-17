@@ -20,4 +20,12 @@ public class SortedCars {
     private void updateAverageHorsePower(double newCarHorsePower) {
         averageHorsePower = (averageHorsePower * cars.size() + newCarHorsePower) / (cars.size() + 1);
     }
+
+    public double getAverageHorsePower() {
+        return averageHorsePower;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
 }
