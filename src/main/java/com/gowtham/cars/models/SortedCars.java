@@ -1,6 +1,5 @@
 package com.gowtham.cars.models;
 
-import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,11 +9,7 @@ public class SortedCars {
 
     public SortedCars() {
         averageHorsePower = 0.0;
-        cars = new TreeSet<Car>(new Comparator<Car>() {
-            public int compare(Car car1, Car car2) {
-                return Double.compare(car1.getHorsePower() - car2.getHorsePower(), 0.0);
-            }
-        });
+        cars = new TreeSet<>((car1, car2) -> Double.compare(car1.getHorsePower() - car2.getHorsePower(), 0.0));
     }
 
     public boolean addCar(Car car) {

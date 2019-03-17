@@ -15,7 +15,7 @@ public class ArgumentsParser {
     private String origin;
 
     private List<Option> getOptionsList() {
-        List<Option> options = new LinkedList<Option>();
+        List<Option> options = new LinkedList<>();
 
         Option filePathOption = new Option("f", "file", true, "Path to the dataset file");
         filePathOption.setRequired(true);
@@ -60,12 +60,10 @@ public class ArgumentsParser {
             }
 
             this.file = file;
-        } catch (ParseException e) {
+        } catch (ParseException | FileNotFoundException e) {
             throw new InvalidArgumentException(e.getMessage(), e);
         } catch (NumberFormatException e) {
             throw new InvalidArgumentException("Invalid Input for number of cars: " + commandLine.getOptionValue("n"), e);
-        } catch (FileNotFoundException e) {
-            throw new InvalidArgumentException(e.getMessage(), e);
         }
     }
 
