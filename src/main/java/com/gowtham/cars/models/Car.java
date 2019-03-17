@@ -11,16 +11,8 @@ public class Car {
         this.origin = origin;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public double getHorsePower() {
         return horsePower;
-    }
-
-    public String getOrigin() {
-        return origin;
     }
 
     @Override
