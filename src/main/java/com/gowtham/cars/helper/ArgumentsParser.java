@@ -1,6 +1,7 @@
 package com.gowtham.cars.helper;
 
 
+import com.gowtham.cars.exceptions.InvalidArgumentException;
 import org.apache.commons.cli.*;
 
 import java.io.File;
@@ -30,6 +31,42 @@ public class ArgumentsParser {
         options.add(originOption);
 
         return options;
+    }
+
+    public void parseArgs(String[] args) throws InvalidArgumentException {
+        CommandLine commandLine = null;
+        try {
+            List<Option> optionList = getOptionsList();
+            Options options = new Options();
+
+            for (Option option : optionList) {
+                options.addOption(option);
+            }
+
+            CommandLineParser parser = new DefaultParser();
+            commandLine = parser.parse(options, args);
+
+            origin = commandLine.getOptionValue("o");
+
+            numOfCars = Integer.parseInt(commandLine.getOptionValue("n"));
+            if (numOfCars < 0) {
+                throw new NumberFormatException();
+            }
+
+            String filePath = commandLine.getOptionValue("f");
+            File file = new File(filePath);
+            if (!file.exists()) {
+                throw new FileNotFoundException("Given file: " + filePath + " not found");
+            }
+
+            this.file = file;
+        } catch (ParseException e) {
+            throw new InvalidArgumentException(e.getMessage(), e);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException("Invalid Input for number of cars: " + commandLine.getOptionValue("n"), e);
+        } catch (FileNotFoundException e) {
+            throw new InvalidArgumentException(e.getMessage(), e);
+        }
     }
 
     public File getFilePath() {
