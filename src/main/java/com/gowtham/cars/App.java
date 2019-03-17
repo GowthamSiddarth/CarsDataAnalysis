@@ -7,8 +7,7 @@ import com.gowtham.cars.models.Car;
 import com.gowtham.cars.models.SortedCars;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -24,17 +23,10 @@ public class App {
             HashMap<String, SortedCars> sortedCarsByOrigin = processData.getSortedCarsByOrigin();
 
             SortedCars sortedCarsInOrigin = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
-            Iterator<Car> sortedCarsItr = sortedCarsInOrigin.getCars().iterator();
+            List<Car> filteredCars = processData.filterCarsWithHpMoreThanAvgHpWithLimit(sortedCarsInOrigin, numOfCars);
 
-            int count = 0;
-            while (count < numOfCars && sortedCarsItr.hasNext()) {
-                Car car = sortedCarsItr.next();
-                if (car.getHorsePower() > sortedCarsInOrigin.getAverageHorsePower()) {
-                    System.out.println(car);
-                }
-                count++;
-            }
-
+            filteredCars.sort(Comparator.comparingInt(Car::getIndex));
+            filteredCars.forEach(System.out::println);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }
