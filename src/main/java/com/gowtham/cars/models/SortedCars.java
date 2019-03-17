@@ -1,15 +1,15 @@
 package com.gowtham.cars.models;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SortedCars {
     private double averageHorsePower;
-    private Set<Car> cars;
+    private List<Car> cars;
 
     public SortedCars() {
         averageHorsePower = 0.0;
-        cars = new TreeSet<>((Car car1, Car car2) -> Double.compare(car2.getHorsePower(), car1.getHorsePower()));
+        cars = new LinkedList<>();
     }
 
     public boolean addCar(Car car) {
@@ -25,7 +25,7 @@ public class SortedCars {
         return averageHorsePower;
     }
 
-    public Set<Car> getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 }
