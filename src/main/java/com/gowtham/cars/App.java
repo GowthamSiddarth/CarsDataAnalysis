@@ -26,7 +26,6 @@ public class App {
             SortedCars sortedCarsInOrigin = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
             List<Car> filteredCars = processData.filterCarsWithHpMoreThanAvgHpWithLimit(sortedCarsInOrigin, numOfCars);
 
-            filteredCars.sort(Comparator.comparingInt(Car::getIndex));
             filteredCars.forEach(System.out::println);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
