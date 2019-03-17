@@ -17,6 +17,10 @@ public class Car {
         return horsePower;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     @Override
     public String toString() {
         return name + "," + horsePower + "," + origin;
