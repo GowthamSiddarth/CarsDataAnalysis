@@ -1,13 +1,11 @@
 package com.gowtham.cars.models;
 
 public class Car {
-    private int index;
     private String name;
     private double horsePower;
     private String origin;
 
-    public Car(int index, String name, double horsePower, String origin) {
-        this.index = index;
+    public Car(String name, double horsePower, String origin) {
         this.name = name;
         this.horsePower = horsePower;
         this.origin = origin;
@@ -17,12 +15,8 @@ public class Car {
         return horsePower;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     @Override
     public String toString() {
-        return name + "," + horsePower + "," + origin;
+        return name + "," + origin + "," + horsePower;
     }
 }
