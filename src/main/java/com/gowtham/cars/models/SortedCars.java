@@ -9,7 +9,11 @@ public class SortedCars {
 
     public SortedCars() {
         averageHorsePower = 0.0;
-        cars = new TreeSet<>((car1, car2) -> Double.compare(car1.getHorsePower() - car2.getHorsePower(), 0.0));
+        cars = new TreeSet<>((Car car1, Car car2) -> {
+            if (car1.getHorsePower() < car2.getHorsePower()) return 1;
+            else if (car1.getHorsePower() > car2.getHorsePower()) return -1;
+            else return 0;
+        });
     }
 
     public boolean addCar(Car car) {
