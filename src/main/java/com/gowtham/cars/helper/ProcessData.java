@@ -5,7 +5,7 @@ import com.gowtham.cars.models.Car;
 import com.gowtham.cars.models.SortedCars;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.*;
 
 public class ProcessData {
     private File dataset;
@@ -56,5 +56,21 @@ public class ProcessData {
         }
 
         return null;
+    }
+
+    public List<Car> filterCarsWithHpMoreThanAvgHpWithLimit(SortedCars sortedCars, int numOfCars) {
+        Iterator<Car> sortedCarsItr = sortedCars.getCars().iterator();
+        List<Car> filteredCars = new ArrayList<>();
+
+        int count = 0;
+        while (count < numOfCars && sortedCarsItr.hasNext()) {
+            Car car = sortedCarsItr.next();
+            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) {
+                filteredCars.add(car);
+            }
+            count++;
+        }
+
+        return filteredCars;
     }
 }
