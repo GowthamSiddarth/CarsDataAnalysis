@@ -24,11 +24,11 @@ public class ProcessData {
                 bufferedReader.readLine();
             }
 
-            String line;
             HashMap<String, SortedCars> sortedCarsByOrigin = new HashMap<>();
             RecordParser recordParser = new RecordParser();
-            do {
-                line = bufferedReader.readLine();
+
+            String line;
+            while (null != (line = bufferedReader.readLine())) {
                 recordParser.parseRecord(line);
 
                 String carName = recordParser.getCarName();
@@ -37,9 +37,9 @@ public class ProcessData {
 
                 Car car = new Car(carName, horsePower, origin);
                 SortedCars sortedCars = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
-                sortedCars.addCar(car);
-                sortedCarsByOrigin.put(origin, sortedCars);
-            } while (null != line);
+                if (sortedCars.addCar(car))
+                    sortedCarsByOrigin.put(origin, sortedCars);
+            }
 
             return sortedCarsByOrigin;
         } catch (IOException e) {
