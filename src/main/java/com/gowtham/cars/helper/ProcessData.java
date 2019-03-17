@@ -2,7 +2,7 @@ package com.gowtham.cars.helper;
 
 
 import com.gowtham.cars.models.Car;
-import com.gowtham.cars.models.SortedCars;
+import com.gowtham.cars.models.CarsFromOrigin;
 
 import java.io.*;
 import java.util.*;
@@ -16,7 +16,7 @@ public class ProcessData {
         this.header = header;
     }
 
-    public HashMap<String, SortedCars> getSortedCarsByOrigin() {
+    public HashMap<String, CarsFromOrigin> getCarsByOrigin() {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(dataset));
@@ -24,7 +24,7 @@ public class ProcessData {
                 bufferedReader.readLine();
             }
 
-            HashMap<String, SortedCars> sortedCarsByOrigin = new HashMap<>();
+            HashMap<String, CarsFromOrigin> sortedCarsByOrigin = new HashMap<>();
             RecordParser recordParser = new RecordParser();
 
             String line;
@@ -36,9 +36,9 @@ public class ProcessData {
                 String origin = recordParser.getOrigin();
 
                 Car car = new Car(carName, horsePower, origin);
-                SortedCars sortedCars = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
-                if (sortedCars.addCar(car))
-                    sortedCarsByOrigin.put(origin, sortedCars);
+                CarsFromOrigin carsFromOrigin = sortedCarsByOrigin.getOrDefault(origin, new CarsFromOrigin());
+                if (carsFromOrigin.addCar(car))
+                    sortedCarsByOrigin.put(origin, carsFromOrigin);
             }
 
             return sortedCarsByOrigin;
@@ -55,14 +55,14 @@ public class ProcessData {
         return null;
     }
 
-    public List<Car> filterCarsWithHpMoreThanAvgHpWithLimit(SortedCars sortedCars, int numOfCars) {
-        Iterator<Car> sortedCarsItr = sortedCars.getCars().iterator();
+    public List<Car> filterCarsWithHpMoreThanAvgHpWithLimit(CarsFromOrigin carsFromOrigin, int numOfCars) {
+        Iterator<Car> sortedCarsItr = carsFromOrigin.getCars().iterator();
         List<Car> filteredCars = new ArrayList<>();
 
         int count = 0;
         while (count < numOfCars && sortedCarsItr.hasNext()) {
             Car car = sortedCarsItr.next();
-            if (car.getHorsePower() > sortedCars.getAverageHorsePower()) {
+            if (car.getHorsePower() > carsFromOrigin.getAverageHorsePower()) {
                 filteredCars.add(car);
                 count++;
             }

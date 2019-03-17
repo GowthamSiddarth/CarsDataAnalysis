@@ -4,7 +4,7 @@ import com.gowtham.cars.exceptions.InvalidArgumentException;
 import com.gowtham.cars.helper.ArgumentsParser;
 import com.gowtham.cars.helper.ProcessData;
 import com.gowtham.cars.models.Car;
-import com.gowtham.cars.models.SortedCars;
+import com.gowtham.cars.models.CarsFromOrigin;
 
 import java.io.File;
 import java.util.*;
@@ -21,10 +21,10 @@ public class App {
             boolean header = argumentsParser.isHeaderPresent();
 
             ProcessData processData = new ProcessData(dataset, header);
-            HashMap<String, SortedCars> sortedCarsByOrigin = processData.getSortedCarsByOrigin();
+            HashMap<String, CarsFromOrigin> carsByOrigin = processData.getCarsByOrigin();
 
-            SortedCars sortedCarsInOrigin = sortedCarsByOrigin.getOrDefault(origin, new SortedCars());
-            List<Car> filteredCars = processData.filterCarsWithHpMoreThanAvgHpWithLimit(sortedCarsInOrigin, numOfCars);
+            CarsFromOrigin carsFromOrigin = carsByOrigin.getOrDefault(origin, new CarsFromOrigin());
+            List<Car> filteredCars = processData.filterCarsWithHpMoreThanAvgHpWithLimit(carsFromOrigin, numOfCars);
 
             filteredCars.forEach(System.out::println);
         } catch (InvalidArgumentException e) {

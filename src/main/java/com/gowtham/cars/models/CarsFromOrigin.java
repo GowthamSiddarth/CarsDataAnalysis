@@ -3,11 +3,11 @@ package com.gowtham.cars.models;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SortedCars {
+public class CarsFromOrigin {
     private double averageHorsePower;
     private List<Car> cars;
 
-    public SortedCars() {
+    public CarsFromOrigin() {
         averageHorsePower = 0.0;
         cars = new LinkedList<>();
     }
