@@ -11,7 +11,10 @@ public class App {
             ArgumentsParser argumentsParser = new ArgumentsParser();
             argumentsParser.parseArgs(args);
 
-            File dataset = argumentsParser.
+            File dataset = argumentsParser.getFile();
+            String origin = argumentsParser.getOrigin();
+            int numOfCars = argumentsParser.getNumOfCars();
+
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }
